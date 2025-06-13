@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: ginapp
+  namespace: argocd
+spec:
+  destination:
+    namespace: ginapp
+    server: "https://kubernetes.default.svc"
+  project: default
+  source: 
+    path: helm/ginapp
+    repoURL: "https://github.com/xianfengyuan/ginapp-config.git"
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
